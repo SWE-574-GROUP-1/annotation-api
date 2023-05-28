@@ -1,7 +1,11 @@
-# in urls.py
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from .views import AnnotationViewSet, AnnotationSearch
 
-from django.urls import path, re_path
+router = DefaultRouter()
+router.register('annotations', AnnotationViewSet)
 
-from .views import AnnotationDetail, AnnotationList, AnnotationSearch
-
-urlpatterns = []
+urlpatterns = [
+    path('', include(router.urls)),
+    path("annotations/search", AnnotationSearch.as_view(), name="annotation_search"),
+]
